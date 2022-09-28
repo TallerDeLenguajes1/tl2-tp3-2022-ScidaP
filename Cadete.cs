@@ -11,9 +11,9 @@ namespace TP3 {
         private string direccion;
         private long telefono;
         private List<Pedido> ListaPedidos;
-        private float TotalACobrar;
+        private double TotalACobrar;
 
-        public Cadete(int id, string nombre, string direccion, long telefono, float totalACobrar1, List<Pedido> listaPedidos1) {
+        public Cadete(int id, string nombre, string direccion, long telefono, double totalACobrar1, List<Pedido> listaPedidos1) {
             Id = id;
             Nombre = nombre;
             Direccion = direccion;
@@ -26,7 +26,7 @@ namespace TP3 {
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public long Telefono { get => telefono; set => telefono = value; }
-        public float TotalACobrar1 { get => TotalACobrar; set => TotalACobrar = value; }
+        public double TotalACobrar1 { get => TotalACobrar; set => TotalACobrar = value; }
         internal List<Pedido> ListaPedidos1 { get => ListaPedidos; set => ListaPedidos = value; }
     }
 }
