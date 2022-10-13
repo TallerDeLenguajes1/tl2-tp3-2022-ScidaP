@@ -10,6 +10,7 @@ namespace TP3 {
         private string obs;
         private Cliente datosCliente;
         private string estado;
+        private Cadete datosCadete;
 
         public Pedido(int numero, string obs, string estado, Cliente datosCliente) {
             Numero = numero;
@@ -18,6 +19,15 @@ namespace TP3 {
             DatosCliente = datosCliente;
         }
 
+        public void asignarCadete(Cadete cadete) {
+            datosCadete = cadete;
+        }
+
+        public void CambiarEstado(string EstadoNuevo) {
+            Estado = EstadoNuevo;
+        }
+
+        public Cadete DatosCadete { get => datosCadete; set => datosCadete = value; }
         public int Numero { get => numero; set => numero = value; }
         public string Obs { get => obs; set => obs = value; }
         public string Estado { get => estado; set => estado = value; }

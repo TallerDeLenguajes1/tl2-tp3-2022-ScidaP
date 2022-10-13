@@ -6,8 +6,9 @@ using System.Linq;
 namespace TP3 {
     class Program {
         List<Cadeteria> ListaCadeterias = LoadCadeteria();
-        List<Cadete> ListaCadetes = LoadCadetes();
+        public static List<Cadete> ListaCadetes = LoadCadetes();
         public static List<Cliente> ListaClientes = LoadClientes();
+        public static List<Pedido> ListaPedidos = new List<Pedido>();
         static void Main(string[] args) {
             Console.WriteLine("Cargando cadeterias y cadetes...");
             int accion;
@@ -21,8 +22,49 @@ namespace TP3 {
             switch (accion) {
                 case 1:
                     Pedido NuevoPedido = CargarPedido(ListaClientes);
+                    ListaPedidos.Add(NuevoPedido);
+                    MensajeConSeparador("Pedido agregado con éxito");
+                    break;
+                case 2:
+                    AsignarPedidoCadete();
+                    break;
+                case 3:
+                    CambiarEstadoPedido();
+                    break;
+                case 6:
+                    ListarPedidos(ListaPedidos);
                     break;
             }
+        }
+
+        public static void CambiarEstadoPedido() {
+            Pedido PedidoBuscado = null;
+            while (PedidoBuscado == null) {
+                Console.WriteLine("Ingrese el numero del pedido a buscar");
+                int numeroPedido = Convert.ToInt32(Console.ReadLine());
+                PedidoBuscado = ListaPedidos.Find(pedido => pedido.Numero.Equals(numeroPedido));
+            }
+            Console.WriteLine("Ingrese el nuevo Estado del pedido");
+            string EstadoPedido = Console.ReadLine();
+            PedidoBuscado.CambiarEstado(EstadoPedido);
+            MensajeConSeparador("Estado del Pedido " + PedidoBuscado.Numero + " cambiado correctamente");
+        }
+
+        public static void AsignarPedidoCadete() {
+            Pedido PedidoBuscado = null;
+            while (PedidoBuscado == null) {
+                Console.WriteLine("Ingrese el numero del pedido a buscar");
+                int numeroPedido = Convert.ToInt32(Console.ReadLine());
+                PedidoBuscado = ListaPedidos.Find(pedido => pedido.Numero.Equals(numeroPedido));
+            }
+            Cadete CadeteBuscado = null;
+            while (CadeteBuscado == null) {
+                Console.WriteLine("Ingrese el nombre del cadete para asignarle el pedido");
+                string nombreCadete = Console.ReadLine();
+                CadeteBuscado = ListaCadetes.Find(cadete => cadete.Nombre.Contains(nombreCadete));
+            }
+            PedidoBuscado.asignarCadete(CadeteBuscado);
+            MensajeConSeparador("Pedido " + PedidoBuscado.Numero + " correctamente asignado al cadete " + CadeteBuscado.Nombre);
         }
         public static int CargarInterfaz() {
             Console.WriteLine("Ingrese {1} para cargar pedidos");
@@ -30,6 +72,7 @@ namespace TP3 {
             Console.WriteLine("Ingrese {3} para cambiar el estado de un pedido");
             Console.WriteLine("Ingrese {4} para cambiar el cadete de un pedido");
             Console.WriteLine("Ingrese {5} para crear un cadete");
+            Console.WriteLine("Ingrese {6} para ver todos los pedidos");
             Console.WriteLine("Ingrese {9} para cerrar");
             int decision = Convert.ToInt32(Console.ReadLine());
             return decision;
@@ -58,14 +101,29 @@ namespace TP3 {
                     flag = 1;
                 }
             } while (ClienteBuscado == null);
-            var NuevoPedido = new Pedido(numero, obs, estado, ClienteBuscado);
+            Pedido NuevoPedido = new Pedido(numero, obs, estado, ClienteBuscado);
             return NuevoPedido;
         }
 
-        public void DecidirPedido() {
-
+        public static void ListarPedidos(List<Pedido> listapedidos) {
+            foreach (var pedido in listapedidos) {
+                Console.WriteLine("--- --- --- --- --- --- --- --- --- --- ---");
+                Console.WriteLine("Numero del pedido: " + pedido.Numero);
+                Console.WriteLine("Cliente: " + pedido.DatosCliente.Nombre);
+                Console.WriteLine("Obs del pedido: " + pedido.Obs);
+                Console.WriteLine("Estado del pedido: " + pedido.Estado);
+                Console.WriteLine("Cadete a cargo del pedido: " + pedido.DatosCadete.Nombre);
+                Console.WriteLine("--- --- --- --- --- --- --- --- --- --- ---");
+            }
         }
 
+        public static void MensajeConSeparador(string texto) {
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(texto);
+            Console.WriteLine("----------------------------------------");
+        }
+
+        // //////////////////MÉTODOS LOAD ////////////////////////////////////
         public static List<Cadeteria> LoadCadeteria() { 
             List<Cadeteria> ListaCadeterias = new List<Cadeteria>();
             string nombreArhivoCadeteria = "datosCadeteria.csv";
