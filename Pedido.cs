@@ -21,8 +21,6 @@ namespace TP3 {
         public void CambiarEstado(string EstadoNuevo) {
             Estado = EstadoNuevo;
         }
-
-        public Cadete DatosCadete { get => datosCadete; set => datosCadete = value; }
         public int Numero { get => numero; set => numero = value; }
         public string Obs { get => obs; set => obs = value; }
         public string Estado { get => estado; set => estado = value; }

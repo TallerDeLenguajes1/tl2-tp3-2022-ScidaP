@@ -18,6 +18,13 @@ namespace TP3 {
             Telefono = telefono;
         }
 
+        public virtual void MostrarDatos() {
+            Console.WriteLine("ID: " + Id);
+            Console.WriteLine("Nombre: " + Nombre);
+            Console.WriteLine("Direccion: " + Direccion);
+            Console.WriteLine("Telefono: " + Telefono);
+        }
+
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }

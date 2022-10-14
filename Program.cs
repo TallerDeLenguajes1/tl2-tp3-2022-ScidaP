@@ -31,12 +31,25 @@ namespace TP3 {
                 case 3:
                     CambiarEstadoPedido();
                     break;
+                case 7:
+                    Cadete cadeteBuscado = BuscarCadete();
+                    cadeteBuscado.MostrarDatos();
+                    break;
                 case 6:
                     ListarPedidos(ListaPedidos);
                     break;
             }
         }
 
+        public static Cadete BuscarCadete() {
+            Cadete CadeteBuscado = null;
+            while (CadeteBuscado == null) {
+                Console.WriteLine("Ingrese el nombre del cadete a buscar");
+                string nombreCadete = Console.ReadLine();
+                CadeteBuscado = ListaCadetes.Find(cadete => cadete.Nombre.Contains(nombreCadete));
+            }
+            return CadeteBuscado;
+        }
         public static void CambiarEstadoPedido() {
             Pedido PedidoBuscado = null;
             while (PedidoBuscado == null) {
@@ -57,12 +70,7 @@ namespace TP3 {
                 int numeroPedido = Convert.ToInt32(Console.ReadLine());
                 PedidoBuscado = ListaPedidos.Find(pedido => pedido.Numero.Equals(numeroPedido));
             }
-            Cadete CadeteBuscado = null;
-            while (CadeteBuscado == null) {
-                Console.WriteLine("Ingrese el nombre del cadete para asignarle el pedido");
-                string nombreCadete = Console.ReadLine();
-                CadeteBuscado = ListaCadetes.Find(cadete => cadete.Nombre.Contains(nombreCadete));
-            }
+            Cadete CadeteBuscado = BuscarCadete();
             CadeteBuscado.ListaPedidos1.Add(PedidoBuscado);
             MensajeConSeparador("Pedido " + PedidoBuscado.Numero + " correctamente asignado al cadete " + CadeteBuscado.Nombre);
         }
@@ -73,6 +81,7 @@ namespace TP3 {
             Console.WriteLine("Ingrese {4} para cambiar el cadete de un pedido");
             Console.WriteLine("Ingrese {5} para crear un cadete");
             Console.WriteLine("Ingrese {6} para ver todos los pedidos");
+            Console.WriteLine("Ingrese {7} para mostrar los datos de un cadete");
             Console.WriteLine("Ingrese {9} para cerrar");
             int decision = Convert.ToInt32(Console.ReadLine());
             return decision;
@@ -112,7 +121,6 @@ namespace TP3 {
                 Console.WriteLine("Cliente: " + pedido.DatosCliente.Nombre);
                 Console.WriteLine("Obs del pedido: " + pedido.Obs);
                 Console.WriteLine("Estado del pedido: " + pedido.Estado);
-                Console.WriteLine("Cadete a cargo del pedido: " + pedido.DatosCadete.Nombre);
                 Console.WriteLine("--- --- --- --- --- --- --- --- --- --- ---");
             }
         }

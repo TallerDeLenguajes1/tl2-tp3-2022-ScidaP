@@ -13,6 +13,11 @@ namespace TP3 {
             TotalACobrar1 = totalACobrar1;
             ListaPedidos1 = listaPedidos1;
         }
+
+        public override void MostrarDatos() {
+            base.MostrarDatos(); 
+            Console.WriteLine("Total a Cobrar: " + TotalACobrar1);
+        }
         public double TotalACobrar1 { get => TotalACobrar; set => TotalACobrar = value; }
         internal List<Pedido> ListaPedidos1 { get => ListaPedidos; set => ListaPedidos = value; }
     }
