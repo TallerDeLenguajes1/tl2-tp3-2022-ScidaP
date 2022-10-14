@@ -10,17 +10,12 @@ namespace TP3 {
         private string obs;
         private Cliente datosCliente;
         private string estado;
-        private Cadete datosCadete;
 
         public Pedido(int numero, string obs, string estado, Cliente datosCliente) {
             Numero = numero;
             Obs = obs;
             Estado = estado;
             DatosCliente = datosCliente;
-        }
-
-        public void asignarCadete(Cadete cadete) {
-            datosCadete = cadete;
         }
 
         public void CambiarEstado(string EstadoNuevo) {

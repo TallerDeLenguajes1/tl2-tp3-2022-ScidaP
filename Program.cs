@@ -63,7 +63,7 @@ namespace TP3 {
                 string nombreCadete = Console.ReadLine();
                 CadeteBuscado = ListaCadetes.Find(cadete => cadete.Nombre.Contains(nombreCadete));
             }
-            PedidoBuscado.asignarCadete(CadeteBuscado);
+            CadeteBuscado.ListaPedidos1.Add(PedidoBuscado);
             MensajeConSeparador("Pedido " + PedidoBuscado.Numero + " correctamente asignado al cadete " + CadeteBuscado.Nombre);
         }
         public static int CargarInterfaz() {
